@@ -25,7 +25,7 @@ public class UserController {
     @PostMapping("/add")
     public String addUser(@ModelAttribute User user, Model model) {
         try {
-            user.setId(++idCounter); // Assign incremental ID
+            user.setId(++idCounter);
             users.add(user);
             model.addAttribute("message", "User added successfully!");
         } catch (Exception e) {

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Management</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-container {
+            margin: 20px 0;
+        }
+        .message {
+            color: green;
+            margin: 10px 0;
+        }
+        .error {
+            color: red;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Management</h1>
+    
+    <div class="form-container">
+        <form method="post" action="/add" th:object="${user}">
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" required>
+            <label for="age">Age:</label>
+            <input type="number" id="age" th:field="*{age}" required>
+            <button type="submit">Add User</button>
+        </form>
+    </div>
+
+    <div th:if="${message != null}" 
+         th:classappend="${message.startsWith('Error')} ? 'error' : 'message'"
+         th:text="${message}"></div>
+
+    <h2>All Users</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.age}"></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(users)}">
+            <td colspan="3">No users found</td>
+        </tr>
+    </table>
+</body>
+</html>
